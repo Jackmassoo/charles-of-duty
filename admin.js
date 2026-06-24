@@ -496,3 +496,42 @@ async function deleteBonusMission(id){
 loadMissionEditor();
 loadValidatedMissions();
 loadBonusMissions();
+
+async function loadDashboard(){
+
+    const { data: settings } =
+    await supabaseClient
+    .from("game_settings")
+    .select("*")
+    .single();
+
+    const { count: missionsDone } =
+    await supabaseClient
+    .from("missions")
+    .select("*", { count:"exact", head:true })
+    .eq("validated", true);
+
+    const { count: achievements } =
+    await supabaseClient
+    .from("achievements")
+    .select("*", { count:"exact", head:true })
+    .eq("unlocked", true);
+
+    document.getElementById("admin-bullets")
+        .textContent =
+        settings.current_bullets;
+
+    document.getElementById("admin-team")
+        .textContent =
+        settings.current_teammates;
+
+    document.getElementById("admin-missions")
+        .textContent =
+        missionsDone + " / 43";
+
+    document.getElementById("admin-achievements")
+        .textContent =
+        achievements;
+
+}
+loadDashboard();
