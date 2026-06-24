@@ -416,3 +416,79 @@ async function reactivateMission(id){
     loadValidatedMissions();
 
 }
+
+async function loadBonusMissions(){
+
+    const { data } =
+    await supabaseClient
+    .from('missions')
+    .select('*')
+    .eq('is_bonus', true)
+    .order('title');
+
+    let html = "";
+
+    data.forEach(mission => {
+
+        html += `
+            <div style="margin-bottom:10px;">
+
+                ${mission.title}
+
+                <br>
+
+                <button
+                    onclick="deleteBonusMission('${mission.id}')">
+
+                    Supprimer
+
+                </button>
+
+            </div>
+        `;
+
+    });
+
+    document.getElementById(
+        "bonus-list"
+    ).innerHTML = html;
+
+}
+
+async function deleteBonusMission(id){
+
+    const { data } =
+    await supabaseClient
+    .from('missions')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+    if(
+        !confirm(
+            `Supprimer "${data.title}" ?`
+        )
+    ){
+        return;
+    }
+
+    await supabaseClient
+    .from('missions')
+    .delete()
+    .eq('id', id);
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: "Mission bonus supprimée",
+        note: data.title
+    });
+
+    alert(
+        "Mission supprimée"
+    );
+
+    loadBonusMissions();
+
+}
