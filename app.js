@@ -1,3 +1,4 @@
+console.log("APP VERSION 2");
 async function loadGame() {
 
     const { data, error } =
