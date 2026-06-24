@@ -1,4 +1,3 @@
-console.log("APP VERSION 2");
 async function loadGame() {
 
     const { data, error } =
@@ -55,11 +54,8 @@ async function loadMissionStats() {
             mission => mission.validated === true
         ).length;
 
-    const remaining =
-        total - completed;
-
     document.getElementById("missions-count").innerText =
-        `${remaining} / ${total}`;
+        `${completed} / ${total}`;
 
 }
 
