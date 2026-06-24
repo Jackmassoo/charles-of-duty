@@ -26,6 +26,8 @@ async function loadGame() {
 
     document.getElementById("progress").innerText =
         `${percent}%`;
+    document.getElementById("progress-bar").style.width =
+`${Math.min(percent,100)}%`;
 
 }
 
