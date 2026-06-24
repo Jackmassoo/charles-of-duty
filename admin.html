@@ -45,70 +45,38 @@
 </div>
 
 <br>
-        <div class="card">
+ <div class="card">
 
-            <h3>🔫 Billes</h3>
+    <h2>👤 Gestion du marié</h2>
 
-            <button onclick="addBullets(10)">
-                +10 billes
-            </button>
+    <h3>🔫 Billes</h3>
 
-            <br><br>
+    <input type="number"
+           id="bullets-value"
+           placeholder="Nombre de billes">
 
-            <button onclick="addBullets(-10)">
-                -10 billes
-            </button>
+    <button onclick="setBullets()">💾</button>
 
-        </div>
+    <button onclick="addBullets(10)">+10</button>
 
-        <div class="card">
+    <button onclick="addBullets(-10)">-10</button>
 
-            <h3>🪖 Coéquipiers</h3>
+    <hr>
 
-            <button onclick="addTeammate(1)">
-                +1 coéquipier
-            </button>
+    <h3>🪖 Coéquipiers</h3>
 
-            <br><br>
+    <input type="number"
+           id="teammates-value"
+           placeholder="Nombre de coéquipiers">
 
-            <button onclick="addTeammate(-1)">
-                -1 coéquipier
-            </button>
+    <button onclick="setTeammates()">💾</button>
 
-        </div>
-<div class="card">
+    <button onclick="addTeammate(1)">+1</button>
 
-    <h3>✏️ Modifier les billes</h3>
-
-    <input
-        type="number"
-        id="bullets-value"
-        placeholder="Nombre de billes">
-
-    <br><br>
-
-    <button onclick="setBullets()">
-        Enregistrer
-    </button>
+    <button onclick="addTeammate(-1)">-1</button>
 
 </div>
 
-<div class="card">
-
-    <h3>✏️ Modifier les coéquipiers</h3>
-
-    <input
-        type="number"
-        id="teammates-value"
-        placeholder="Nombre de coéquipiers">
-
-    <br><br>
-
-    <button onclick="setTeammates()">
-        Enregistrer
-    </button>
-
-</div>
         <div class="card">
 
             <h3>🎁 Créer une mission bonus</h3>
