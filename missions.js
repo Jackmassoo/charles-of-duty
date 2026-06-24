@@ -1,4 +1,3 @@
-console.log("VERSION 2");
 async function loadMissions() {
 
     const { data, error } =
@@ -12,7 +11,7 @@ async function loadMissions() {
         console.error(error);
         return;
     }
-console.log(data);
+
     const container =
     document.getElementById("missions-list");
 
@@ -33,8 +32,8 @@ console.log(data);
                 +${mission.reward}
                 ${
                     mission.reward_type === 'bullets'
-                    ? 'billes'
-                    : 'coéquipier'
+                    ? ' billes'
+                    : ' coéquipier'
                 }
             </p>
 
@@ -69,7 +68,6 @@ async function validateMission(id) {
     if (mission.validated) {
 
         alert("Mission déjà validée !");
-
         return;
 
     }
@@ -77,7 +75,8 @@ async function validateMission(id) {
     await supabaseClient
     .from('missions')
     .update({
-        validated: true
+        validated: true,
+        validated_by: witness
     })
     .eq('id', id);
 
@@ -127,7 +126,7 @@ async function validateMission(id) {
 
     alert("Mission validée !");
 
-    loadMissions();
+    window.location.reload();
 
 }
 
