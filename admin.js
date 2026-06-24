@@ -86,7 +86,15 @@ async function loadDashboard(){
         "teammates-value"
     ).value =
         settings.current_teammates;
+document.getElementById(
+    "max-bullets-value"
+).value =
+    settings.max_bullets;
 
+document.getElementById(
+    "max-teammates-value"
+).value =
+    settings.max_teammates;
 }
 
 // ======================================
@@ -254,6 +262,57 @@ async function setTeammates(){
     await logAdmin(
         "Modification des coéquipiers",
         value + " coéquipiers"
+    );
+
+    await loadDashboard();
+
+}
+async function setMaxBullets(){
+
+    const value = parseInt(
+        document.getElementById(
+            "max-bullets-value"
+        ).value
+    );
+
+    if(isNaN(value)) return;
+
+    await supabaseClient
+    .from("game_settings")
+    .update({
+        max_bullets: value
+    })
+    .eq("id", 1);
+
+    await logAdmin(
+        "Maximum billes modifié",
+        value.toString()
+    );
+
+    await loadDashboard();
+
+}
+
+async function setMaxTeammates(){
+
+    const value = parseInt(
+        document.getElementById(
+            "max-teammates-value"
+        ).value
+    );
+
+    if(isNaN(value)) return;
+
+    await supabaseClient
+    .from("game_settings")
+    .update({
+        max_teammates: value
+    })
+    .eq("id", 1);
+
+    await logAdmin(
+        "Maximum coéquipiers modifié",
+        value.toString()
     );
 
     await loadDashboard();
