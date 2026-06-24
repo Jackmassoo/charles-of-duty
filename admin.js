@@ -492,3 +492,7 @@ async function deleteBonusMission(id){
     loadBonusMissions();
 
 }
+
+loadMissionEditor();
+loadValidatedMissions();
+loadBonusMissions();
