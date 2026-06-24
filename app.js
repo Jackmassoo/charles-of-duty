@@ -34,6 +34,8 @@ async function loadGame() {
 
     loadMissionStats();
 
+    checkAchievements(game);
+
 }
 
 function updateLevel(bullets){
@@ -90,8 +92,7 @@ async function loadMissionStats() {
         return;
     }
 
-    const total =
-        data.length;
+    const total = data.length;
 
     const completed =
         data.filter(
@@ -100,6 +101,98 @@ async function loadMissionStats() {
 
     document.getElementById("missions-count").innerText =
         `${completed} / ${total}`;
+
+}
+
+async function checkAchievements(game){
+
+    const { data: achievements } =
+    await supabaseClient
+    .from('achievements')
+    .select('*');
+
+    const { data: missions } =
+    await supabaseClient
+    .from('missions')
+    .select('validated');
+
+    const completedMissions =
+        missions.filter(
+            m => m.validated === true
+        ).length;
+
+    for(const achievement of achievements){
+
+        let unlocked = false;
+
+        switch(achievement.title){
+
+            case "Première Victoire":
+                unlocked = completedMissions >= 1;
+                break;
+
+            case "Recrue Confirmée":
+                unlocked = completedMissions >= 5;
+                break;
+
+            case "Héros Local":
+                unlocked = completedMissions >= 10;
+                break;
+
+            case "Arsenal Léger":
+                unlocked = game.current_bullets >= 50;
+                break;
+
+            case "Arsenal Lourd":
+                unlocked = game.current_bullets >= 100;
+                break;
+
+            case "Arsenal de Rambo":
+                unlocked = game.current_bullets >= 150;
+                break;
+
+            case "Escouade Complète":
+                unlocked = game.current_teammates >= 4;
+                break;
+
+            case "Légende de l'EVG":
+                unlocked = game.current_bullets >= 200;
+                break;
+
+        }
+
+        if(unlocked && !achievement.unlocked){
+
+            await supabaseClient
+            .from('achievements')
+            .update({
+                unlocked: true
+            })
+            .eq('id', achievement.id);
+
+        }
+
+    }
+
+    loadAchievements();
+
+}
+
+async function loadAchievements(){
+
+    const { data } =
+    await supabaseClient
+    .from('achievements')
+    .select('*');
+
+    const unlocked =
+        data.filter(
+            a => a.unlocked === true
+        ).length;
+
+    document.getElementById(
+        "achievements-count"
+    ).innerText = unlocked;
 
 }
 
