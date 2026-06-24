@@ -1,37 +1,78 @@
 body{
-    background:#111;
+    background:#0d1117;
     color:white;
-    font-family:Arial, sans-serif;
+    font-family:Arial,sans-serif;
     margin:0;
     padding:20px;
 }
 
 .container{
-    max-width:900px;
+    max-width:1000px;
     margin:auto;
 }
 
-h1{
+.hero{
     text-align:center;
+    margin-bottom:30px;
 }
 
-h2{
-    text-align:center;
+.subtitle{
     color:#c9a227;
 }
 
+.charles-photo{
+    width:220px;
+    height:220px;
+    object-fit:cover;
+    border-radius:50%;
+    border:4px solid #c9a227;
+    margin-top:15px;
+}
+
 .card{
-    background:#1d1d1d;
-    padding:20px;
-    margin-top:20px;
+    background:#161b22;
+    border:1px solid #30363d;
     border-radius:12px;
-    border:1px solid #333;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
 }
 
 #bullets,
 #teammates,
 #progress,
-#level{
+#level,
+#missions-count,
+#achievements-count{
     font-size:2rem;
     font-weight:bold;
+}
+
+.progress-container{
+    width:100%;
+    height:30px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:10px;
+}
+
+#progress-bar{
+    height:100%;
+    width:0%;
+    background:#c9a227;
+    transition:0.5s;
+}
+
+@media(max-width:700px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
 }
