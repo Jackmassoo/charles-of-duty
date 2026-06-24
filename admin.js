@@ -69,3 +69,80 @@ async function addTeammate(amount) {
     alert("Coéquipiers mis à jour");
 
 }
+async function setBullets() {
+
+    const value =
+        parseInt(
+            document.getElementById(
+                "bullets-value"
+            ).value
+        );
+
+    if(isNaN(value)){
+        alert("Valeur invalide");
+        return;
+    }
+
+    const { data } =
+    await supabaseClient
+    .from('game_settings')
+    .select('*')
+    .single();
+
+    await supabaseClient
+    .from('game_settings')
+    .update({
+        current_bullets: value
+    })
+    .eq('id', data.id);
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: "Modification des billes",
+        note: `${value} billes`
+    });
+
+    alert("Billes mises à jour");
+
+}
+
+async function setTeammates() {
+
+    const value =
+        parseInt(
+            document.getElementById(
+                "teammates-value"
+            ).value
+        );
+
+    if(isNaN(value)){
+        alert("Valeur invalide");
+        return;
+    }
+
+    const { data } =
+    await supabaseClient
+    .from('game_settings')
+    .select('*')
+    .single();
+
+    await supabaseClient
+    .from('game_settings')
+    .update({
+        current_teammates: value
+    })
+    .eq('id', data.id);
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: "Modification des coéquipiers",
+        note: `${value} coéquipiers`
+    });
+
+    alert("Coéquipiers mis à jour");
+
+}
