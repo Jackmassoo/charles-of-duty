@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Charles of Duty - Administration</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🔧 Administration</h1>
+
+    <!-- ========================= -->
+    <!-- DASHBOARD                 -->
+    <!-- ========================= -->
+
+    <div class="stats-grid">
+
+        <div class="card">
+
+            <h3>🔫 Billes</h3>
+
+            <div id="admin-bullets">
+                -
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🪖 Équipe</h3>
+
+            <div id="admin-team">
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="stats-grid">
+
+        <div class="card">
+
+            <h3>🎯 Missions</h3>
+
+            <div id="admin-missions">
+                -
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🏆 Succès</h3>
+
+            <div id="admin-achievements">
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+    <br>
+
+    <!-- ========================= -->
+    <!-- GESTION DU MARIÉ          -->
+    <!-- ========================= -->
+
+    <div class="card">
+
+        <h2>👤 Gestion du marié</h2>
+
+        <hr>
+
+        <h3>🔫 Billes</h3>
+
+        <input
+            type="number"
+            id="bullets-value"
+            placeholder="Nombre de billes">
+
+        <button onclick="setBullets()">
+            💾
+        </button>
+
+        <button onclick="addBullets(10)">
+            +10
+        </button>
+
+        <button onclick="addBullets(-10)">
+            -10
+        </button>
+
+        <br><br>
+
+        <h3>🪖 Coéquipiers</h3>
+
+        <input
+            type="number"
+            id="teammates-value"
+            placeholder="Nombre de coéquipiers">
+
+        <button onclick="setTeammates()">
+            💾
+        </button>
+
+        <button onclick="addTeammate(1)">
+            +1
+        </button>
+
+        <button onclick="addTeammate(-1)">
+            -1
+        </button>
+
+    </div>
+
+    <br>
+
+    <!-- ========================= -->
+    <!-- GESTION DES MISSIONS      -->
+    <!-- ========================= -->
+
+    <div class="card">
+
+        <h2>🎯 Gestion des missions</h2>
+
+        <hr>
+
+        <h3>🎁 Créer une mission bonus</h3>
+
+        <input
+            type="text"
+            id="bonus-title"
+            placeholder="Titre de la mission">
+
+        <br><br>
+
+        <input
+            type="number"
+            id="bonus-reward"
+            placeholder="Récompense">
+
+        <br><br>
+
+        <select id="bonus-type">
+
+            <option value="bullets">
+                Billes
+            </option>
+
+            <option value="teammate">
+                Coéquipier
+            </option>
+
+        </select>
+
+        <br><br>
+
+        <button onclick="createBonusMission()">
+            ➕ Créer la mission
+        </button>
+
+        <hr>
