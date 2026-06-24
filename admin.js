@@ -554,7 +554,34 @@ async function deleteSelectedBonusMission(){
     refresh();
 
 }
+async function deleteMission(){
 
+    if(!currentMissionId) return;
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .eq("id", currentMissionId)
+    .single();
+
+    if(!confirm(
+        `Supprimer "${data.title}" ?`
+    )) return;
+
+    await supabaseClient
+    .from("missions")
+    .delete()
+    .eq("id", currentMissionId);
+
+    await logAdmin(
+        "Mission supprimée",
+        data.title
+    );
+
+    refresh();
+
+}
 // ======================================
 // FIN
 // ======================================
