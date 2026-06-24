@@ -1,3 +1,4 @@
+console.log("VERSION 2");
 async function loadMissions() {
 
     const { data, error } =
