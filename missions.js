@@ -11,7 +11,7 @@ async function loadMissions() {
         console.error(error);
         return;
     }
-
+console.log(data);
     const container =
     document.getElementById("missions-list");
 
