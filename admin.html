@@ -119,17 +119,20 @@
 
         <div class="card">
 
-            <h3>🗑 Missions bonus</h3>
+    <h3>🗑 Supprimer une mission bonus</h3>
 
-            <div id="bonus-list">
-                Chargement...
-            </div>
+    <select id="bonus-select">
+       <option>Chargement...</option>
+    </select>
 
-        </div>
+    <br><br>
 
-        <div class="card">
+    <button onclick="deleteSelectedBonusMission()">
+        🗑 Supprimer
+    </button>
 
-            <div class="card">
+</div>
+<div class="card">
 
     <h3>✏️ Éditer une mission</h3>
 
@@ -172,13 +175,21 @@
     </button>
 
 </div>
-            <h3>🔄 Réactiver une mission</h3>
+           <div class="card">
 
-            <div id="validated-list">
-                Chargement...
-            </div>
+    <h3>🔄 Réactiver une mission</h3>
 
-        </div>
+    <select id="validated-select">
+        <option>Chargement...</option>
+    </select>
+
+    <br><br>
+
+    <button onclick="reactivateSelectedMission()">
+        🔄 Réactiver
+    </button>
+
+</div>
 
         <br>
 
