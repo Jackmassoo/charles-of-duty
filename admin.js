@@ -1,4 +1,4 @@
-async function addBullets(amount){
+async function addBullets(amount) {
 
     const { data } =
     await supabaseClient
@@ -9,7 +9,7 @@ async function addBullets(amount){
     let newValue =
         data.current_bullets + amount;
 
-    if(newValue < 0){
+    if (newValue < 0) {
         newValue = 0;
     }
 
@@ -20,11 +20,21 @@ async function addBullets(amount){
     })
     .eq('id', data.id);
 
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: amount > 0
+            ? "Ajout de billes"
+            : "Retrait de billes",
+        note: `${amount > 0 ? '+' : ''}${amount} billes`
+    });
+
     alert("Billes mises à jour");
 
 }
 
-async function addTeammate(amount){
+async function addTeammate(amount) {
 
     const { data } =
     await supabaseClient
@@ -35,7 +45,7 @@ async function addTeammate(amount){
     let newValue =
         data.current_teammates + amount;
 
-    if(newValue < 0){
+    if (newValue < 0) {
         newValue = 0;
     }
 
@@ -45,6 +55,16 @@ async function addTeammate(amount){
         current_teammates: newValue
     })
     .eq('id', data.id);
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: amount > 0
+            ? "Ajout de coéquipier"
+            : "Retrait de coéquipier",
+        note: `${amount > 0 ? '+' : ''}${amount} coéquipier`
+    });
 
     alert("Coéquipiers mis à jour");
 
