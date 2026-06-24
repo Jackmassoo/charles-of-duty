@@ -30,7 +30,51 @@ async function loadGame() {
     document.getElementById("progress-bar").style.width =
         `${Math.min(percent,100)}%`;
 
+    updateLevel(game.current_bullets);
+
     loadMissionStats();
+
+}
+
+function updateLevel(bullets){
+
+    let level = "";
+
+    if(bullets === 0)
+        level = "Fêtard du 13 Février";
+
+    else if(bullets <= 20)
+        level = "Général du Célibat";
+
+    else if(bullets <= 40)
+        level = "Sergent des EVG";
+
+    else if(bullets <= 60)
+        level = "Capitaine des Promesses Éternelles";
+
+    else if(bullets <= 80)
+        level = "Commandant des Témoins";
+
+    else if(bullets <= 100)
+        level = "Maréchal des Alliances";
+
+    else if(bullets <= 120)
+        level = "Seigneur des Noces";
+
+    else if(bullets <= 150)
+        level = "Légende Vivante du Mariage";
+
+    else if(bullets <= 180)
+        level = "Charles of Duty";
+
+    else if(bullets < 200)
+        level = "Carlito l'Immortel";
+
+    else
+        level = "Élu Suprême des Mariés";
+
+    document.getElementById("level").innerText =
+        level;
 
 }
 
