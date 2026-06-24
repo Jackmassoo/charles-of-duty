@@ -6,7 +6,7 @@ async function loadMissions() {
     .select('*')
     .order('reward', { ascending: true });
 
-    if(error){
+    if (error) {
         console.error(error);
         return;
     }
@@ -36,9 +36,7 @@ async function loadMissions() {
                 }
             </p>
 
-            <button
-                onclick="validateMission('${mission.id}')"
-            >
+            <button onclick="validateMission('${mission.id}')">
                 Valider
             </button>
         `;
@@ -49,22 +47,13 @@ async function loadMissions() {
 
 }
 
-async function validateMission(id){
+async function validateMission(id) {
 
     const witness = prompt(
-`Qui valide cette mission ?
-
-Ithan
-Thomas
-Paul
-Nico
-Jacques
-Hugo
-Simon
-Zac`
+        "Qui valide cette mission ?"
     );
 
-    if(!witness) return;
+    if (!witness) return;
 
     const { data: mission } =
     await supabaseClient
@@ -73,7 +62,7 @@ Zac`
     .eq('id', id)
     .single();
 
-    if(!mission) return;
+    if (!mission) return;
 
     await supabaseClient
     .from('missions')
@@ -88,7 +77,7 @@ Zac`
     .select('*')
     .single();
 
-    if(mission.reward_type === "bullets"){
+    if (mission.reward_type === "bullets") {
 
         await supabaseClient
         .from('game_settings')
@@ -101,7 +90,7 @@ Zac`
 
     }
 
-    if(mission.reward_type === "teammate"){
+    if (mission.reward_type === "teammate") {
 
         await supabaseClient
         .from('game_settings')
