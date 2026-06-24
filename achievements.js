@@ -15,7 +15,6 @@ async function loadAchievements() {
     document.getElementById("achievements-list");
 
     container.innerHTML = "";
-
     data.forEach(achievement => {
 
         const card =
