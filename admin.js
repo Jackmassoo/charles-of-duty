@@ -277,12 +277,18 @@ async function setMaxBullets(){
 
     if(isNaN(value)) return;
 
-    await supabaseClient
-    .from("game_settings")
-    .update({
-        max_bullets: value
-    })
-    .eq("id", 1);
+    const { data } =
+await supabaseClient
+.from("game_settings")
+.select("*")
+.single();
+
+await supabaseClient
+.from("game_settings")
+.update({
+    max_bullets: value
+})
+.eq("id", data.id);
 
     await logAdmin(
         "Maximum billes modifié",
@@ -303,12 +309,18 @@ async function setMaxTeammates(){
 
     if(isNaN(value)) return;
 
-    await supabaseClient
-    .from("game_settings")
-    .update({
-        max_teammates: value
-    })
-    .eq("id", 1);
+   const { data } =
+await supabaseClient
+.from("game_settings")
+.select("*")
+.single();
+
+await supabaseClient
+.from("game_settings")
+.update({
+    max_teammates: value
+})
+.eq("id", data.id);
 
     await logAdmin(
         "Maximum coéquipiers modifié",
