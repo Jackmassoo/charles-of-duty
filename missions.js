@@ -29,9 +29,11 @@ async function loadMissions() {
             <p>
                 Récompense :
                 +${mission.reward}
-                ${mission.reward_type === 'bullets'
+                ${
+                    mission.reward_type === 'bullets'
                     ? 'billes'
-                    : 'coéquipier'}
+                    : 'coéquipier'
+                }
             </p>
 
             <button
@@ -48,6 +50,21 @@ async function loadMissions() {
 }
 
 async function validateMission(id){
+
+    const witness = prompt(
+`Qui valide cette mission ?
+
+Ithan
+Thomas
+Paul
+Nico
+Jacques
+Hugo
+Simon
+Zac`
+    );
+
+    if(!witness) return;
 
     const { data: mission } =
     await supabaseClient
@@ -96,6 +113,20 @@ async function validateMission(id){
         .eq('id', game.id);
 
     }
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: witness,
+        action: mission.title,
+        note: `+${mission.reward} ${
+            mission.reward_type === 'bullets'
+                ? 'billes'
+                : 'coéquipier'
+        }`
+    });
+
+    alert("Mission validée !");
 
     loadMissions();
 
