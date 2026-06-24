@@ -345,3 +345,74 @@ async function saveMission(){
     loadMissionEditor();
 
 }
+
+async function loadValidatedMissions(){
+
+    const { data } =
+    await supabaseClient
+    .from('missions')
+    .select('*')
+    .eq('validated', true)
+    .order('title');
+
+    let html = "";
+
+    data.forEach(mission => {
+
+        html += `
+            <div style="margin-bottom:10px;">
+
+                ${mission.title}
+
+                <br>
+
+                <button
+                    onclick="reactivateMission('${mission.id}')">
+
+                    Réactiver
+
+                </button>
+
+            </div>
+        `;
+
+    });
+
+    document.getElementById(
+        "validated-list"
+    ).innerHTML = html;
+
+}
+
+async function reactivateMission(id){
+
+    const { data } =
+    await supabaseClient
+    .from('missions')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+    await supabaseClient
+    .from('missions')
+    .update({
+        validated: false,
+        validated_by: null
+    })
+    .eq('id', id);
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: "Mission réactivée",
+        note: data.title
+    });
+
+    alert(
+        "Mission réactivée"
+    );
+
+    loadValidatedMissions();
+
+}
