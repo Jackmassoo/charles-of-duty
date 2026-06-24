@@ -201,3 +201,147 @@ async function createBonusMission() {
     location.reload();
 
 }
+let currentMissionId = null;
+
+loadMissionEditor();
+
+async function loadMissionEditor() {
+
+    const { data } =
+    await supabaseClient
+    .from('missions')
+    .select('*')
+    .order('title');
+
+    const select =
+        document.getElementById(
+            "edit-mission-select"
+        );
+
+    select.innerHTML = "";
+
+    data.forEach(mission => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = mission.id;
+        option.textContent = mission.title;
+
+        select.appendChild(option);
+
+    });
+
+    if(data.length > 0){
+
+        loadMission(data[0].id);
+
+    }
+
+    select.addEventListener(
+        "change",
+        function(){
+
+            loadMission(this.value);
+
+        }
+    );
+
+}
+
+async function loadMission(id){
+
+    const { data } =
+    await supabaseClient
+    .from('missions')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+    currentMissionId = id;
+
+    document.getElementById(
+        "edit-title"
+    ).value = data.title;
+
+    document.getElementById(
+        "edit-reward"
+    ).value = data.reward;
+
+    document.getElementById(
+        "edit-type"
+    ).value = data.reward_type;
+
+}
+
+async function saveMission(){
+
+    const title =
+        document.getElementById(
+            "edit-title"
+        ).value;
+
+    const reward =
+        parseInt(
+            document.getElementById(
+                "edit-reward"
+            ).value
+        );
+
+    const rewardType =
+        document.getElementById(
+            "edit-type"
+        ).value;
+
+    let category;
+
+    if(rewardType === "bullets"){
+
+        category =
+            reward + "_billes";
+
+    }else{
+
+        category =
+            "recrutement";
+
+    }
+
+    const { error } =
+    await supabaseClient
+    .from('missions')
+    .update({
+        title: title,
+        reward: reward,
+        reward_type: rewardType,
+        category: category
+    })
+    .eq('id', currentMissionId);
+
+    if(error){
+
+        console.error(error);
+
+        alert(
+            "Erreur modification mission"
+        );
+
+        return;
+
+    }
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: "Mission modifiée",
+        note: title
+    });
+
+    alert(
+        "Mission mise à jour"
+    );
+
+    loadMissionEditor();
+
+}
