@@ -130,6 +130,49 @@
 
         <div class="card">
 
+            <div class="card">
+
+    <h3>✏️ Éditer une mission</h3>
+
+    <select id="edit-mission-select">
+        <option>
+            Chargement...
+        </option>
+    </select>
+
+    <br><br>
+
+    <input
+        type="text"
+        id="edit-title"
+        placeholder="Titre">
+
+    <br><br>
+
+    <input
+        type="number"
+        id="edit-reward"
+        placeholder="Récompense">
+
+    <br><br>
+
+    <select id="edit-type">
+        <option value="bullets">
+            Billes
+        </option>
+
+        <option value="teammate">
+            Coéquipier
+        </option>
+    </select>
+
+    <br><br>
+
+    <button onclick="saveMission()">
+        💾 Sauvegarder
+    </button>
+
+</div>
             <h3>🔄 Réactiver une mission</h3>
 
             <div id="validated-list">
