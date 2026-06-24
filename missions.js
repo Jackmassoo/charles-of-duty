@@ -4,6 +4,7 @@ async function loadMissions() {
     await supabaseClient
     .from('missions')
     .select('*')
+    .eq('validated', false)
     .order('reward', { ascending: true });
 
     if (error) {
@@ -63,6 +64,14 @@ async function validateMission(id) {
     .single();
 
     if (!mission) return;
+
+    if (mission.validated) {
+
+        alert("Mission déjà validée !");
+
+        return;
+
+    }
 
     await supabaseClient
     .from('missions')
