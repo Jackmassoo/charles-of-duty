@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration</title>
+    <title>Charles of Duty</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -15,52 +15,135 @@
 
     <div class="container">
 
-        <h1>🔧 Administration</h1>
+        <header class="hero">
+
+            <h1>⚔️ CHARLES OF DUTY ⚔️</h1>
+
+            <h2>La Quête du Marié</h2>
+
+            <p class="subtitle">
+                Team Équipée du Marié
+            </p>
+
+            <img
+                src="assets/charles.jpg"
+                alt="Charles"
+                class="charles-photo">
+
+        </header>
 
         <div class="card">
 
-            <h3>🔫 Billes</h3>
+            <h3>🏅 Niveau du Marié</h3>
 
-            <button onclick="addBullets(10)">
-                +10 billes
-            </button>
-
-            <br><br>
-
-            <button onclick="addBullets(-10)">
-                -10 billes
-            </button>
+            <div id="level">
+                Général du Célibat
+            </div>
 
         </div>
 
         <div class="card">
 
-            <h3>🪖 Coéquipiers</h3>
+            <h3>📈 Progression</h3>
 
-            <button onclick="addTeammate(1)">
-                +1 coéquipier
-            </button>
+            <div class="progress-container">
 
-            <br><br>
+                <div id="progress-bar"></div>
 
-            <button onclick="addTeammate(-1)">
-                -1 coéquipier
-            </button>
+            </div>
+
+            <div id="progress">
+                0%
+            </div>
 
         </div>
 
-        <br>
+        <div class="stats-grid">
 
-        <a href="index.html">
-            <button>
-                ⬅ Retour à l'accueil
-            </button>
-        </a>
+            <div class="card">
+
+                <h3>🔫 Billes</h3>
+
+                <div id="bullets">
+                    Chargement...
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🪖 Coéquipiers</h3>
+
+                <div id="teammates">
+                    Chargement...
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="stats-grid">
+
+            <div class="card">
+
+                <h3>🏆 Succès</h3>
+
+                <div id="achievements-count">
+                    0
+                </div>
+
+            </div>
+
+            <div class="card">
+
+                <h3>🎯 Missions</h3>
+
+                <div id="missions-count">
+                    0 / 43
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <a href="missions.html">
+                <button>
+                    🎯 Voir les missions
+                </button>
+            </a>
+
+            <br><br>
+
+            <a href="warlog.html">
+                <button>
+                    📜 Journal de Guerre
+                </button>
+            </a>
+
+            <br><br>
+
+            <a href="achievements.html">
+                <button>
+                    🏆 Voir les succès
+                </button>
+            </a>
+
+            <br><br>
+
+            <a href="admin.html">
+                <button>
+                    🔧 Administration
+                </button>
+            </a>
+
+        </div>
 
     </div>
 
     <script src="supabase.js"></script>
-    <script src="admin.js"></script>
+    <script src="app.js"></script>
 
 </body>
 
