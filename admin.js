@@ -29,7 +29,7 @@ async function addBullets(amount) {
             : "Retrait de billes",
         note: `${amount > 0 ? '+' : ''}${amount} billes`
     });
-
+loadDashboard();
     alert("Billes mises à jour");
 
 }
@@ -56,18 +56,19 @@ async function addTeammate(amount) {
     })
     .eq('id', data.id);
 
-    await supabaseClient
-    .from('war_log')
-    .insert({
-        author: "ADMIN",
-        action: amount > 0
-            ? "Ajout de coéquipier"
-            : "Retrait de coéquipier",
-        note: `${amount > 0 ? '+' : ''}${amount} coéquipier`
-    });
+ await supabaseClient
+.from('war_log')
+.insert({
+    author: "ADMIN",
+    action: amount > 0
+        ? "Ajout de coéquipier"
+        : "Retrait de coéquipier",
+    note: `${amount > 0 ? '+' : ''}${amount} coéquipier`
+});
 
-    alert("Coéquipiers mis à jour");
+loadDashboard();
 
+alert("Coéquipiers mis à jour");
 }
 async function setBullets() {
 
@@ -97,14 +98,16 @@ async function setBullets() {
     .eq('id', data.id);
 
     await supabaseClient
-    .from('war_log')
-    .insert({
-        author: "ADMIN",
-        action: "Modification des billes",
-        note: `${value} billes`
-    });
+.from('war_log')
+.insert({
+    author: "ADMIN",
+    action: "Modification des billes",
+    note: `${value} billes`
+});
 
-    alert("Billes mises à jour");
+loadDashboard();
+
+alert("Billes mises à jour");
 
 }
 
@@ -142,7 +145,7 @@ async function setTeammates() {
         action: "Modification des coéquipiers",
         note: `${value} coéquipiers`
     });
-
+loadDashboard();
     alert("Coéquipiers mis à jour");
 
 }
@@ -532,6 +535,11 @@ async function loadDashboard(){
     document.getElementById("admin-achievements")
         .textContent =
         achievements;
+    document.getElementById("bullets-value").value =
+    settings.current_bullets;
+
+document.getElementById("teammates-value").value =
+    settings.current_teammates;
 
 }
 loadDashboard();
