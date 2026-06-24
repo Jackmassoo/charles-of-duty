@@ -26,8 +26,39 @@ async function loadGame() {
 
     document.getElementById("progress").innerText =
         `${percent}%`;
+
     document.getElementById("progress-bar").style.width =
-`${Math.min(percent,100)}%`;
+        `${Math.min(percent,100)}%`;
+
+    loadMissionStats();
+
+}
+
+async function loadMissionStats() {
+
+    const { data, error } =
+    await supabaseClient
+    .from('missions')
+    .select('validated');
+
+    if(error){
+        console.error(error);
+        return;
+    }
+
+    const total =
+        data.length;
+
+    const completed =
+        data.filter(
+            mission => mission.validated === true
+        ).length;
+
+    const remaining =
+        total - completed;
+
+    document.getElementById("missions-count").innerText =
+        `${remaining} / ${total}`;
 
 }
 
