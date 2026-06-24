@@ -49,6 +49,62 @@
 
         </div>
 
+        <div class="card">
+
+            <h3>🎁 Créer une mission bonus</h3>
+
+            <input
+                type="text"
+                id="bonus-title"
+                placeholder="Titre de la mission">
+
+            <br><br>
+
+            <input
+                type="number"
+                id="bonus-reward"
+                placeholder="Récompense">
+
+            <br><br>
+
+            <select id="bonus-type">
+                <option value="bullets">
+                    Billes
+                </option>
+
+                <option value="teammate">
+                    Coéquipier
+                </option>
+            </select>
+
+            <br><br>
+
+            <button onclick="createBonusMission()">
+                Créer la mission
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🗑 Missions bonus</h3>
+
+            <div id="bonus-list">
+                Chargement...
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🔄 Réactiver une mission</h3>
+
+            <div id="validated-list">
+                Chargement...
+            </div>
+
+        </div>
+
         <br>
 
         <a href="index.html">
