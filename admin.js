@@ -146,3 +146,58 @@ async function setTeammates() {
     alert("Coéquipiers mis à jour");
 
 }
+
+async function createBonusMission() {
+
+    const title =
+        document.getElementById("bonus-title").value;
+
+    const reward =
+        parseInt(
+            document.getElementById("bonus-reward").value
+        );
+
+    const rewardType =
+        document.getElementById("bonus-type").value;
+
+    if(!title || isNaN(reward)){
+        alert("Complète tous les champs");
+        return;
+    }
+
+    const category =
+        rewardType === "bullets"
+        ? `${reward}_billes`
+        : "recrutement";
+
+    const { error } =
+    await supabaseClient
+    .from('missions')
+    .insert({
+        title: title,
+        category: category,
+        reward: reward,
+        reward_type: rewardType,
+        validated: false,
+        is_bonus: true
+    });
+
+    if(error){
+        console.error(error);
+        alert("Erreur création mission");
+        return;
+    }
+
+    await supabaseClient
+    .from('war_log')
+    .insert({
+        author: "ADMIN",
+        action: "Mission bonus créée",
+        note: title
+    });
+
+    alert("Mission bonus créée");
+
+    location.reload();
+
+}
