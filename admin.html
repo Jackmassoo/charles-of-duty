@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🔧 Administration</h1>
+
+        <div class="card">
+
+            <h3>🔫 Billes</h3>
+
+            <button onclick="addBullets(10)">
+                +10 billes
+            </button>
+
+            <br><br>
+
+            <button onclick="addBullets(-10)">
+                -10 billes
+            </button>
+
+        </div>
+
+        <div class="card">
+
+            <h3>🪖 Coéquipiers</h3>
+
+            <button onclick="addTeammate(1)">
+                +1 coéquipier
+            </button>
+
+            <br><br>
+
+            <button onclick="addTeammate(-1)">
+                -1 coéquipier
+            </button>
+
+        </div>
+
+        <br>
+
+        <a href="index.html">
+            <button>
+                ⬅ Retour à l'accueil
+            </button>
+        </a>
+
+    </div>
+
+    <script src="supabase.js"></script>
+    <script src="admin.js"></script>
+
+</body>
+
+</html>
