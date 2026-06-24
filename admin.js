@@ -417,3 +417,148 @@ async function saveMission(){
     refresh();
 
 }
+// ======================================
+// RÉACTIVATION / SUPPRESSION
+// Partie 4/4
+// ======================================
+
+async function loadValidatedMissions(){
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .eq("validated", true)
+    .order("title");
+
+    const select =
+        document.getElementById(
+            "validated-select"
+        );
+
+    select.innerHTML = "";
+
+    data.forEach(mission=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            mission.id;
+
+        option.textContent =
+            mission.title;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+async function reactivateSelectedMission(){
+
+    const id =
+        document.getElementById(
+            "validated-select"
+        ).value;
+
+    if(!id) return;
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+    await supabaseClient
+    .from("missions")
+    .update({
+        validated:false,
+        validated_by:null
+    })
+    .eq("id", id);
+
+    await logAdmin(
+        "Mission réactivée",
+        data.title
+    );
+
+    refresh();
+
+}
+
+async function loadBonusMissions(){
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .eq("is_bonus", true)
+    .order("title");
+
+    const select =
+        document.getElementById(
+            "bonus-select"
+        );
+
+    select.innerHTML = "";
+
+    data.forEach(mission=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            mission.id;
+
+        option.textContent =
+            mission.title;
+
+        select.appendChild(option);
+
+    });
+
+}
+
+async function deleteSelectedBonusMission(){
+
+    const id =
+        document.getElementById(
+            "bonus-select"
+        ).value;
+
+    if(!id) return;
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+    if(!confirm(
+        `Supprimer "${data.title}" ?`
+    )) return;
+
+    await supabaseClient
+    .from("missions")
+    .delete()
+    .eq("id", id);
+
+    await logAdmin(
+        "Mission bonus supprimée",
+        data.title
+    );
+
+    refresh();
+
+}
+
+// ======================================
+// FIN
+// ======================================
+
+console.log(
+    "✅ Admin V1 chargé"
+);
