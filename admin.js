@@ -259,3 +259,161 @@ async function setTeammates(){
     await loadDashboard();
 
 }
+// ======================================
+// GESTION DES MISSIONS
+// Partie 3/4
+// ======================================
+
+async function createBonusMission(){
+
+    const title =
+        document.getElementById("bonus-title").value;
+
+    const reward =
+        parseInt(
+            document.getElementById("bonus-reward").value
+        );
+
+    const rewardType =
+        document.getElementById("bonus-type").value;
+
+    if(!title || isNaN(reward)) return;
+
+    const category =
+        rewardType === "bullets"
+            ? reward + "_billes"
+            : "recrutement";
+
+    await supabaseClient
+    .from("missions")
+    .insert({
+        title,
+        reward,
+        reward_type: rewardType,
+        category,
+        validated:false,
+        is_bonus:true
+    });
+
+    await logAdmin(
+        "Mission bonus créée",
+        title
+    );
+
+    refresh();
+
+}
+
+async function loadMissionEditor(){
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .order("title");
+
+    const select =
+        document.getElementById(
+            "edit-mission-select"
+        );
+
+    select.innerHTML = "";
+
+    data.forEach(mission=>{
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            mission.id;
+
+        option.textContent =
+            mission.title;
+
+        select.appendChild(option);
+
+    });
+
+    if(data.length){
+
+        loadMission(data[0].id);
+
+    }
+
+    select.onchange = ()=>
+        loadMission(select.value);
+
+}
+
+async function loadMission(id){
+
+    const { data } =
+    await supabaseClient
+    .from("missions")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+    currentMissionId = id;
+
+    document.getElementById(
+        "edit-title"
+    ).value = data.title;
+
+    document.getElementById(
+        "edit-reward"
+    ).value = data.reward;
+
+    document.getElementById(
+        "edit-type"
+    ).value = data.reward_type;
+
+}
+
+async function saveMission(){
+
+    const title =
+        document.getElementById(
+            "edit-title"
+        ).value;
+
+    const reward =
+        parseInt(
+            document.getElementById(
+                "edit-reward"
+            ).value
+        );
+
+    const rewardType =
+        document.getElementById(
+            "edit-type"
+        ).value;
+
+    const category =
+        rewardType === "bullets"
+            ? reward + "_billes"
+            : "recrutement";
+
+    await supabaseClient
+    .from("missions")
+    .update({
+
+        title,
+
+        reward,
+
+        reward_type: rewardType,
+
+        category
+
+    })
+    .eq("id", currentMissionId);
+
+    await logAdmin(
+        "Mission modifiée",
+        title
+    );
+
+    refresh();
+
+}
